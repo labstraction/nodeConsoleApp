@@ -1,24 +1,45 @@
 
 class ParserV2{
 
-    static parseCSVToArray(csv){
+    // static parseCSVToArray(csv){
+    //     const cleanCSV = this.removeSpaces(this.changeCommaWithFullStop(csv))
+    //     const lines = this.splitByline(cleanCSV);
+    //     let array = [];
+    //     for (const line of lines) {
+    //         const lineArray = this.parseLine(line);
+    //         array = array.concat(lineArray);
+    //     }
+
+    //     return array;
+    // }
+
+
+    // static parseCSVToMatrix(csv){
+    //     const cleanCSV = this.removeSpaces(this.changeCommaWithFullStop(csv))
+    //     const lines = this.splitByline(cleanCSV);
+    //     let array = [];
+    //     for (const line of lines) {
+    //         const lineArray = this.parseLine(line);
+    //         array.push(lineArray);
+    //     }
+
+    //     return array;
+    // }
+
+    static parseCSV(csv, outputType){
         const cleanCSV = this.removeSpaces(this.changeCommaWithFullStop(csv))
         const lines = this.splitByline(cleanCSV);
         let array = [];
         for (const line of lines) {
             const lineArray = this.parseLine(line);
-            array = array.concat(lineArray);
+            if(outputType === "-a"){
+                array = array.concat(lineArray);
+            } else {
+                array.push(lineArray);
+            }
         }
 
         return array;
-    }
-
-
-    static parseCSVToMatrix(csv){
-
-    }
-
-    static parseCSV(csv){
         
     }
 

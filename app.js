@@ -6,9 +6,21 @@ const ParserV2 = require('./parserV2.js');
 
 const arg = process.argv.slice(2);
 
-const fileToRead = arg[0];
 
-const fileToWrite = arg[1];
+const inputType = arg[0]
+
+
+const input = arg[1];
+
+const fileToWrite = arg[2];
+
+const outputType = arg[3];
+
+console.log(arg);
+
+// const fileToRead = "./assets/input/ex1.csv";
+
+// const fileToWrite = "./assets/output/res1.json";
 
 // fs.readFile(fileToRead, 'utf8', (error, data) => {
 //     if (error) {
@@ -19,19 +31,37 @@ const fileToWrite = arg[1];
 //     }
 // })
 
-fs.readFile(fileToRead, 'utf8', manageFileData)
+if (inputType === "-s") {
+    const array = ParserV2.parseCSVToArray(input);
+    const json = JSON.stringify(array);
+    writeJSONFile(json);
+} else {
+    fs.readFile(input, 'utf8', manageFileData)
 
-function manageFileData(error, data) {
-    if (error) {
-        console.log(error);
-    } else {
-        const array = ParserV2.parseCSVToArray(data);
-        const json = JSON.stringify(array);
-        writeJSONFile(json);
+    function manageFileData(error, data) {
+        if (error) {
+            console.log(error);
+        } else {
+            const array = ParserV2.parseCSV(data, outputType);
+            const json = JSON.stringify(array);
+            writeJSONFile(json);
+        }
     }
 }
 
-function writeJSONFile(json){
+// fs.readFile(fileToRead, 'utf8', manageFileData)
+
+// function manageFileData(error, data) {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         const array = ParserV2.parseCSVToArray(data);
+//         const json = JSON.stringify(array);
+//         writeJSONFile(json);
+//     }
+// }
+
+function writeJSONFile(json) {
     fs.writeFile(fileToWrite, json, error => {
         if (error) {
             console.log(error);
