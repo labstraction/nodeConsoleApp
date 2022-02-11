@@ -1,7 +1,6 @@
 "use strict"
 
 const fs = require('fs');
-const { json } = require('stream/consumers');
 
 const ParserV2 = require('./parserV2.js');
 
