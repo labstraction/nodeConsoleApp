@@ -4,11 +4,11 @@ const fs = require('fs');
 
 const ParserV2 = require('./parserV2.js');
 
-const argumets = process.argv.slice(2);
+const arg = process.argv.slice(2);
 
-const fileToRead = argumets[0];
+const fileToRead = arg[0];
 
-const fileToWrite = argumets[1];
+const fileToWrite = arg[1];
 
 // fs.readFile(fileToRead, 'utf8', (error, data) => {
 //     if (error) {
