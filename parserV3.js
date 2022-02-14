@@ -16,7 +16,7 @@
 
 class ParserV3{
 
-    static parseCSV(csvString){
+    static parseCSV(csvString, separator = ","){
 
 
         // const regex = new RegExp(" ", 'g');
@@ -27,19 +27,19 @@ class ParserV3{
 
         const csvWithNoSpaces = this.removeSpaces(csvString);
 
-        const csvWithNoComma = this.removeComma(csvWithNoSpaces);
+        // const csvWithNoComma = this.removeComma(csvWithNoSpaces);
 
-        const arrayOfLines = this.splitLines(csvWithNoComma);
+        const arrayOfLines = this.splitLines(csvWithNoSpaces);
 
         const firstLine = arrayOfLines[0]
 
-        const arrayOfProperties = this.splitLineBySemicolon(firstLine);
+        const arrayOfProperties = this.splitLineBySeparator(firstLine, separator);
 
         const users = [];
 
         for (let i = 1; i < arrayOfLines.length; i++) {
             const line = arrayOfLines[i];
-            const arrayOfWords = this.parseValuesFromLine(line);
+            const arrayOfWords = this.parseValuesFromLine(line, separator);
             const user = {};
             for (let j = 0; j <arrayOfProperties.length; j++) {
                 const property = arrayOfProperties[j];
@@ -51,8 +51,8 @@ class ParserV3{
         return users;
     }
     
-    static parseValuesFromLine(string){
-        const arrayOfWords = this.splitLineBySemicolon(string);
+    static parseValuesFromLine(string, separator){
+        const arrayOfWords = this.splitLineBySeparator(string, separator);
         const arrayOfValues = [];
         for (const word of arrayOfWords) {
             const value = this.parseWord(word);
@@ -81,8 +81,8 @@ class ParserV3{
         return string;
     }
 
-    static splitLineBySemicolon(string){
-        const arrayOfWords = string.split(";");
+    static splitLineBySeparator(string, separator){
+        const arrayOfWords = string.split(separator);
         return arrayOfWords
     }
 
